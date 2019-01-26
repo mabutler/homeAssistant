@@ -1,0 +1,11 @@
+.HA_VERSION
+.storage
+.uuid
+OZW_Log.txt
+home-assistant.log
+home-assistant_v2.db
+options.xml
+pyozw.sqlite
+zwcfg_0xedfc4e09.xml
+zwscene.xml
+secrets.yaml
