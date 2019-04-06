@@ -13,9 +13,6 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-introduction:
-
 # Enables the frontend
 frontend:
 
@@ -72,8 +69,20 @@ zwave:
   network_key: !secret zwave_network_key
 
 weather:
-  - platform: darksy
+  - platform: darksky
     api_key: !secret dark_sky_api
+
+input_boolean:
+  away_hours:
+    name: Office hours
+    initial: off
+  sleep_hours:
+    name: Night
+    initial: off
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.0.1/24
 
 group: !include groups.yaml
 automation: !include automations.yaml

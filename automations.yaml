@@ -1,1 +1,96 @@
-[]
+## Time Changes
+- id: Wake_Up
+  alias: "Wake Up"
+  trigger:
+    platform: time
+    at: '07:00:00'
+    condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      service: homeassistant.turn_off
+      entity_id: input_boolean.sleep_hours
+
+- id: Go_To_Sleep
+  alias: "Go To Sleep"
+  trigger:
+    platform: time
+    at: '11:00:00'
+    condition:
+    - condition: time
+      weekday:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+    action:
+      service: homeassistant.turn_on
+      entity_id: input_boolean.sleep_hours
+
+- id: Wake_Up_Weekend
+  alias: "Wake Up Weekend"
+  trigger:
+    platform: time
+    at: '08:30:00'
+    condition:
+    - condition: time
+      weekday:
+        - sat
+        - sun
+    action:
+      service: homeassistant.turn_off
+      entity_id: input_boolean.sleep_hours
+
+- id: Go_To_Sleep_Weekend
+  alias: "Go To Sleep Weekend"
+  trigger:
+    platform: time
+    at: '00:00:00'
+    condition:
+    - condition: time
+      weekday:
+        - fri
+        - sat
+    action:
+      service: homeassistant.turn_on
+      entity_id: input_boolean.sleep_hours
+
+- id: Go_To_Work
+  alias: "Go To Work"
+  trigger:
+    platform: time
+    at: '08:30:00'
+    condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      service: homeassistant.turn_on
+      entity_id: input_boolean.away_hours
+
+- id: Go_Home_From_Work
+  alias: "Go Home From Work"
+  trigger:
+    platform: time
+    at: '05:30:00'
+    condition:
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+    action:
+      service: homeassistant.turn_on
+      entity_id: input_boolean.away_hours
