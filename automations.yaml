@@ -1,4 +1,4 @@
-## Time Changes
+## Sleep Hours
 - id: Wake_Up
   alias: "Wake Up"
   trigger:
@@ -61,6 +61,7 @@
       service: homeassistant.turn_on
       entity_id: input_boolean.sleep_hours
 
+## Work Hours
 - id: Go_To_Work
   alias: "Go To Work"
   trigger:
@@ -94,3 +95,75 @@
     action:
       service: homeassistant.turn_on
       entity_id: input_boolean.away_hours
+
+## Let there be light (and darkness)
+- id: Turn_Lights_On_When_Awake
+  alias: "Turn Lights On When Awake"
+  trigger:
+    - platform: state
+      entity_id: input-boolean.sleep_hours
+      to: 'off'
+  action:
+    entity_id: group.all_lights
+    service: light.turn_on
+
+- id: Turn_Lights_Off_When_Asleep
+  alias: "Turn Lights Off When Asleep"
+  trigger:
+    - platform: state
+      entity_id: input-boolean.sleep_hours
+      to: 'on'
+  action:
+    entity_id: group.all_lights
+    service: light.turn_off
+
+- id: Turn_Lights_On_When_Home
+  alias: "Turn Lights On When Home"
+  trigger:
+    - platform: state
+      entity_id: input-boolean.away_hours
+      to: 'off'
+  action:
+    entity_id: group.all_lights
+    service: light.turn_on
+
+- id: Turn_Lights_Off_During_Work
+  alias: "Turn Lights Off During Work"
+  trigger:
+    - platform: state
+      entity_id: input-boolean.away_hours
+      to: 'off'
+  condition:
+    - entity_id: device_tracker.d4_c9_4b_c8_61_79
+      state: away
+  action:
+      service: light.turn_off
+      entity_id: group.all_lights
+
+- id: Turn_Lights_On_During_Work_When_Home
+  alias: "Turn Lights On During Work When Home"
+  trigger:
+    platform: state,
+    entity_id: device_tracker.d4_c9_4b_c8_61_79
+    state: 'home'
+  condition:
+    condition: state
+    entity_id: input_boolean.away_hours
+    state: 'on'
+  action:
+    service: light.turn_on
+    entity_id: group.all_lights
+
+- id: Turn_Lights_Off_During_Work_When_Leaving
+  alias: "Turn Lights Off During Work When Leaving"
+  trigger:
+    - platform: state,
+      entity_id: device_tracker.d4_c9_4b_c8_61_79
+      state: 'away'
+  condition:
+    condition: state
+    entity_id: input_boolean.away_hours
+    state: 'on'
+  action:
+    service: light.turn_off
+    entity_id: group.all_lights

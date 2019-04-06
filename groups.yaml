@@ -1,6 +1,12 @@
 living_room:
-        name: "Living Room"
-        entities:
-                - switch.candle_warmer_switch
-                - switch.lamp_by_door_switch
-                - light.living_room_lamps_dimmer_switch
+  name: "Living Room"
+  entities:
+    - switch.candle_warmer_switch
+    - switch.lamp_by_door_switch
+    - light.living_room_lamps_dimmer_switch
+
+all_lights:
+  name: "All Lights"
+  entities:
+    - switch.lamp_by_door_switch
+    - light.living_room_lamps_dimmer_switch

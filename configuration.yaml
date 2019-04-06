@@ -79,6 +79,9 @@ input_boolean:
   sleep_hours:
     name: Night
     initial: off
+  vacation:
+    name: Vacation
+    initial: off
 
 device_tracker:
   - platform: nmap_tracker
